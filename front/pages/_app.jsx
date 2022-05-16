@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import 'antd/dist/antd.css';
+import wrapper from '../store/configureStore';
 
 const _App = ({ Component }) => (
   <>
@@ -17,4 +18,4 @@ _App.propTypes = {
   Component: PropTypes.elementType.isRequired,
 };
 
-export default _App;
+export default wrapper.withRedux(_App);
