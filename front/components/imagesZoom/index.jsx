@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Slick from 'react-slick';
-import styled, { createGlobalStyle } from 'styled-components';
-import { CloseOutlined } from '@ant-design/icons';
+
 import { Overlay, Global, Header, CloseBtn, ImgWrapper, Indicator, SlickWrapper } from './styles';
+import { backUrl } from '../../config/config';
 
 const ImagesZoom = ({ images, onClose }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -21,17 +21,21 @@ const ImagesZoom = ({ images, onClose }) => {
             beforeChange={(slide) => setCurrentSlide(slide)}
             infinite
             arrows={false}
+            slidesToShow={1}
             slidesToScroll={1}
           >
             {images.map((v) => (
               <ImgWrapper key={v.src}>
-                <img src={v.src} alt={v.src} />
+                <img src={`${v.src.replace(/\/thumb\//, '/original/')}`} alt={v.src} />
               </ImgWrapper>
             ))}
           </Slick>
           <Indicator>
             <div>
-              {currentSlide + 1} /{images.length}
+              {currentSlide + 1}
+              {' '}
+              /
+              {images.length}
             </div>
           </Indicator>
         </div>
@@ -40,7 +44,7 @@ const ImagesZoom = ({ images, onClose }) => {
   );
 };
 
-ImagesZoom.prototype = {
+ImagesZoom.propTypes = {
   images: PropTypes.arrayOf(PropTypes.object).isRequired,
   onClose: PropTypes.func.isRequired,
 };
